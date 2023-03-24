@@ -1,25 +1,100 @@
 ﻿using System;
 
-public class Medicament
+namespace Farm
 {
-	public Medicament()
-	{
-		string denumire, tip, prospect;
-		float pret;
+    public class Medicament
+    {
+        
+    private const char SEPARATOR_PRINCIPAL_FISIER = ';';
+
+        private const int ID = 0;
+        private const int DENUMIRE = 1;
+        private const int TIP = 2;
+        private const int PROSPECT = 3;
+        private const int PRET = 4;
+
+        private string denumire, tip, prospect;
+        private float pret;
+        private int idMedicament;
+
         //	Constructor fara parametri
         public Medicament()
         {
-            denumire = string.Empty;
+            denumire = tip = prospect = string.Empty;
             pret = 0;
         }
 
         //	Constructor cu parametri
-        public Medicament(string _denumire, string _tip, string _prospect, float _pret)
+        public Medicament(int _idMedicament, string _denumire, string _tip, string _prospect, float _pret)
         {
+            idMedicament = _idMedicament;
             denumire = _denumire;
             tip = _tip;
             pret = _pret;
-            prospect = _prospect:
+            prospect = _prospect;
+        }
+
+        //constructor cu un singur parametru de tip string care reprezinta o linie dintr-un fisier text
+        public Medicament(string linieFisier)
+        {
+            var dateFisier = linieFisier.Split(SEPARATOR_PRINCIPAL_FISIER);
+
+            //ordinea de preluare a campurilor este data de ordinea in care au fost scrise in fisier prin apelul implicit al metodei ConversieLaSir_PentruFisier()
+            idMedicament = Convert.ToInt32(dateFisier[ID]);
+            denumire = dateFisier[DENUMIRE];
+            tip = dateFisier[TIP];
+            pret = Convert.ToSingle(dateFisier[PRET]);
+            prospect = dateFisier[PROSPECT];
+        }
+
+        public string Info()
+        {
+            string info = string.Format("Id:{0} Denumire:{1} Tip: {2} Prospect: {3} Pret: {4}",
+                idMedicament.ToString(),
+                (denumire ?? " NECUNOSCUT "),
+                (tip ?? " NECUNOSCUT "),
+                (prospect ?? " NECUNOSCUT "),
+                pret);
+
+            return info;
+        }
+
+        public string ConversieLaSir_PentruFisier()
+        {
+            string obiectMedicamentPentruFisier = string.Format("{1}{0}{2}{0}{3}{0}{4}{0}{5}{0}",
+                SEPARATOR_PRINCIPAL_FISIER,
+                idMedicament.ToString(),
+                (denumire ?? " NECUNOSCUT "),
+                (tip ?? " NECUNOSCUT "),
+                (prospect ?? " NECUNOSCUT "),
+                pret);
+
+            return obiectMedicamentPentruFisier;
+        }
+
+        public int GetIdMedicament()
+        {
+            return idMedicament;
+        }
+
+        public string GetDenumire()
+        {
+            return denumire;
+        }
+
+        public string GetTip()
+        {
+            return tip;
+        }
+
+        public string GetProspect()
+        {
+            return prospect;
+        }
+
+        public string GetPret()
+        {
+            return Convert.ToString(pret);
         }
     }
 }
