@@ -36,13 +36,13 @@ namespace Farmacia
                     case "I":
                         int idMedicament = nrMedicamente + 1;
 
-                        Console.WriteLine("Introdu denumirea medicamentului {0} : ", idMedicament);
+                        Console.WriteLine("Introdu denumirea medicamentului {0}: ", idMedicament);
                         string denumire = Console.ReadLine();
-                        Console.WriteLine("Introdu tipul medicamentului {0} : ", idMedicament);
+                        Console.WriteLine("Introdu tipul medicamentului {0}: ", idMedicament);
                         string tip = Console.ReadLine();
-                        Console.WriteLine("Introdu prospectul medicamentului {0} : ", idMedicament);
+                        Console.WriteLine("Introdu prospectul medicamentului {0}: ", idMedicament);
                         string prospect = Console.ReadLine();
-                        Console.WriteLine("Introdu pretul medicamentului {0} : ", idMedicament);
+                        Console.WriteLine("Introdu pretul medicamentului {0}: ", idMedicament);
                         float pret = Convert.ToSingle(Console.ReadLine());
                         medicament = new Medicament(idMedicament, denumire, tip, prospect, pret);
                         nrMedicamente++;
@@ -54,14 +54,14 @@ namespace Farmacia
 
                         break;
                     case "F":
-                        //Medicament[] medicamente = adminMedicamenti.GetMedicamenti(out nrMedicamente);
-                        //AfisareMedicamente(medicamente, nrMedicamente);
+                        Medicament[] medicamente = adminMedicamenti.GetMedicamenti(out nrMedicamente);
+                        AfisareMedicamente(medicamente, nrMedicamente);
 
                         break;
                     case "S":
                         idMedicament = nrMedicamente + 1;
                         nrMedicamente++;
-                        medicament = new Medicament(idMedicament, "Ioana", "Radu");
+                        medicament = new Medicament(idMedicament, "Paracetamol", "Pastila", "Fain", 23);
                         //adaugare medicament in fisier
                         adminMedicamenti.AddMedicament(medicament);
 
@@ -77,6 +77,22 @@ namespace Farmacia
             } while (optiune.ToUpper() != "X");
 
             Console.ReadKey();
+        }
+
+        public static void AfisareMedicamente(Medicament[] medicamente, int nrMedicamente)
+        {
+            Console.WriteLine("Medicamentele sunt:");
+            for (int contor = 0; contor < nrMedicamente; contor++)
+            {
+                string infoStudent = string.Format("Medicamentul cu id-ul #{0} are denumirea: {1} {2} {3} {4}",
+                   medicamente[contor].GetIdMedicament(),
+                   medicamente[contor].GetDenumire() ?? " NECUNOSCUT ",
+                   medicamente[contor].GetTip() ?? " NECUNOSCUT ",
+                   medicamente[contor].GetProspect() ?? " NECUNOSCUT ",
+                   medicamente[contor].GetPret() ?? " NECUNOSCUT ");
+
+                Console.WriteLine(infoStudent);
+            }
         }
     }
 }
