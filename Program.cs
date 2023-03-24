@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 using Farm;
 
+using Farmacisti;
+
 using NivelStocareDate;
 
 
@@ -20,6 +22,7 @@ namespace Farmacia
             string numeFisier = ConfigurationManager.AppSettings["NumeFisier"];
             AdministrareMedicamente_FisierText adminMedicamenti = new AdministrareMedicamente_FisierText(numeFisier);
             int nrMedicamente = 0;
+            adminMedicamenti.GetMedicamenti(out nrMedicamente);
 
             string optiune;
             do
@@ -34,19 +37,8 @@ namespace Farmacia
                 switch (optiune.ToUpper())
                 {
                     case "I":
-                        int idMedicament = nrMedicamente + 1;
-
-                        Console.WriteLine("Introdu denumirea medicamentului {0}: ", idMedicament);
-                        string denumire = Console.ReadLine();
-                        Console.WriteLine("Introdu tipul medicamentului {0}: ", idMedicament);
-                        string tip = Console.ReadLine();
-                        Console.WriteLine("Introdu prospectul medicamentului {0}: ", idMedicament);
-                        string prospect = Console.ReadLine();
-                        Console.WriteLine("Introdu pretul medicamentului {0}: ", idMedicament);
-                        float pret = Convert.ToSingle(Console.ReadLine());
-                        medicament = new Medicament(idMedicament, denumire, tip, prospect, pret);
+                        medicament = CitireMedicamentTastatura(nrMedicamente);
                         nrMedicamente++;
-
                         break;
                     case "A":
                         string infoMedicament = medicament.Info();
@@ -59,11 +51,11 @@ namespace Farmacia
 
                         break;
                     case "S":
-                        idMedicament = nrMedicamente + 1;
-                        nrMedicamente++;
+                        int idMedicament = nrMedicamente + 1;
                         medicament = new Medicament(idMedicament, "Paracetamol", "Pastila", "Fain", 23);
                         //adaugare medicament in fisier
                         adminMedicamenti.AddMedicament(medicament);
+                        nrMedicamente++;
 
                         break;
                     case "X":
@@ -93,6 +85,24 @@ namespace Farmacia
 
                 Console.WriteLine(infoStudent);
             }
+        }
+
+        public static Medicament CitireMedicamentTastatura(int nrMedicamente)
+        {
+
+            int idMedicament = nrMedicamente + 1;
+
+            Console.WriteLine("Introdu denumirea medicamentului {0}: ", idMedicament);
+            string denumire = Console.ReadLine();
+            Console.WriteLine("Introdu tipul medicamentului {0}: ", idMedicament);
+            string tip = Console.ReadLine();
+            Console.WriteLine("Introdu prospectul medicamentului {0}: ", idMedicament);
+            string prospect = Console.ReadLine();
+            Console.WriteLine("Introdu pretul medicamentului {0}: ", idMedicament);
+            float pret = Convert.ToSingle(Console.ReadLine());
+            Medicament medicament = new Medicament(idMedicament, denumire, tip, prospect, pret);
+
+            return medicament;
         }
     }
 }
