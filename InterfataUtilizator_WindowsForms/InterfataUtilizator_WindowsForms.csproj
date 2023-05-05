@@ -46,17 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Medicament.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Medicament.Designer.cs">
-      <DependentUpon>Medicament.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Medicament.resx">
-      <DependentUpon>Medicament.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -82,6 +73,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Musett-Coffee-Shop-Croissant.512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Farmacia.csproj">
+      <Project>{8c708a09-be07-43f3-9ad3-196812d8c447}</Project>
+      <Name>Farmacia</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
