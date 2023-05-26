@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdministrareMedicamente_FisierText.cs" />
+    <Compile Include="Enumerari\Tip.cs" />
     <Compile Include="Farmacist.cs" />
     <Compile Include="Medicament.cs" />
     <Compile Include="Program.cs" />

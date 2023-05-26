@@ -1,5 +1,6 @@
 ﻿using Farm;
 
+using System.Collections;
 using System.IO;
 
 namespace NivelStocareDate
@@ -29,25 +30,26 @@ namespace NivelStocareDate
             }
         }
 
-        public Medicament[] GetMedicamenti(out int nrMedicamente)
+        public ArrayList GetMedicamente()
         {
-            Medicament[] medicamente = new Medicament[NR_MAX_MEDICAMENTE];
+            ArrayList medicamente = new ArrayList();
 
             // instructiunea 'using' va apela streamReader.Close()
             using (StreamReader streamReader = new StreamReader(numeFisier))
             {
                 string linieFisier;
-                nrMedicamente = 0;
 
-                // citeste cate o linie si creaza un obiect de tip Medicament
+                // citeste cate o linie si creaza un obiect de tip Student
                 // pe baza datelor din linia citita
                 while ((linieFisier = streamReader.ReadLine()) != null)
                 {
-                    medicamente[nrMedicamente++] = new Medicament(linieFisier);
+                    Medicament student = new Medicament(linieFisier);
+                    medicamente.Add(student);
                 }
             }
 
             return medicamente;
         }
+        
     }
 }

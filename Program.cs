@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Farm;
@@ -22,7 +24,7 @@ namespace Farmacia
             string numeFisier = ConfigurationManager.AppSettings["NumeFisier"];
             AdministrareMedicamente_FisierText adminMedicamenti = new AdministrareMedicamente_FisierText(numeFisier);
             int nrMedicamente = 0;
-            adminMedicamenti.GetMedicamenti(out nrMedicamente);
+            adminMedicamenti.GetMedicamente();
 
             string optiune;
             do
@@ -46,7 +48,7 @@ namespace Farmacia
 
                         break;
                     case "F":
-                        Medicament[] medicamente = adminMedicamenti.GetMedicamenti(out nrMedicamente);
+                        ArrayList medicamente = adminMedicamenti.GetMedicamente();
                         AfisareMedicamente(medicamente, nrMedicamente);
 
                         break;
@@ -71,19 +73,24 @@ namespace Farmacia
             Console.ReadKey();
         }
 
-        public static void AfisareMedicamente(Medicament[] medicamente, int nrMedicamente)
+        public static void AfisareMedicament(Medicament medicament)
+        {
+            string infoMedicament = string.Format("Medicamentul cu id-ul #{0} are denumirea: {1} {2} {3} {4}",
+               medicament.idMedicament,
+               medicament.denumire ?? " NECUNOSCUT ",
+               medicament.tip ?? " NECUNOSCUT ",
+               medicament.prospect ?? " NECUNOSCUT ",
+               medicament.pret.ToString() ?? " NECUNOSCUT ");
+
+            Console.WriteLine(infoMedicament);
+        }
+
+        public static void AfisareMedicamente(ArrayList medicamente, int nrMedicamente)
         {
             Console.WriteLine("Medicamentele sunt:");
             for (int contor = 0; contor < nrMedicamente; contor++)
             {
-                string infoStudent = string.Format("Medicamentul cu id-ul #{0} are denumirea: {1} {2} {3} {4}",
-                   medicamente[contor].GetIdMedicament(),
-                   medicamente[contor].GetDenumire() ?? " NECUNOSCUT ",
-                   medicamente[contor].GetTip() ?? " NECUNOSCUT ",
-                   medicamente[contor].GetProspect() ?? " NECUNOSCUT ",
-                   medicamente[contor].GetPret() ?? " NECUNOSCUT ");
-
-                Console.WriteLine(infoStudent);
+                AfisareMedicament((Medicament)medicamente[contor]);
             }
         }
 

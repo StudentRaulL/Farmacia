@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace Farm
 {
@@ -13,15 +14,19 @@ namespace Farm
         private const int PROSPECT = 3;
         private const int PRET = 4;
 
-        private string denumire, tip, prospect;
-        private float pret;
-        private int idMedicament;
+        public string denumire { get; set; }
+        public string tip { get; set; }
+        public string prospect { get; set; }
+        public int idMedicament { get; set; }
+        public float pret { get; set; }
+        public ArrayList furnizori { get; set; }
 
         //	Constructor fara parametri
         public Medicament()
         {
             denumire = tip = prospect = string.Empty;
             pret = 0;
+            furnizori = new ArrayList();
         }
 
         //	Constructor cu parametri
@@ -70,31 +75,6 @@ namespace Farm
                 pret);
 
             return obiectMedicamentPentruFisier;
-        }
-
-        public int GetIdMedicament()
-        {
-            return idMedicament;
-        }
-
-        public string GetDenumire()
-        {
-            return denumire;
-        }
-
-        public string GetTip()
-        {
-            return tip;
-        }
-
-        public string GetProspect()
-        {
-            return prospect;
-        }
-
-        public string GetPret()
-        {
-            return Convert.ToString(pret);
         }
     }
 
