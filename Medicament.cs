@@ -13,6 +13,7 @@ namespace Farm
         private const int TIP = 2;
         private const int PROSPECT = 3;
         private const int PRET = 4;
+        private const int FURNIZORI = 5;
 
         public string denumire { get; set; }
         public string tip { get; set; }
@@ -43,6 +44,7 @@ namespace Farm
         public Medicament(string linieFisier)
         {
             var dateFisier = linieFisier.Split(SEPARATOR_PRINCIPAL_FISIER);
+            ArrayList furnizList = new ArrayList();
 
             //ordinea de preluare a campurilor este data de ordinea in care au fost scrise in fisier prin apelul implicit al metodei ConversieLaSir_PentruFisier()
             idMedicament = Convert.ToInt32(dateFisier[ID]);
@@ -50,6 +52,8 @@ namespace Farm
             tip = dateFisier[TIP];
             pret = Convert.ToSingle(dateFisier[PRET]);
             prospect = dateFisier[PROSPECT];
+            furnizList.AddRange(dateFisier[FURNIZORI].Split(','));
+            furnizori = furnizList;
         }
 
         public string Info()
@@ -66,13 +70,14 @@ namespace Farm
 
         public string ConversieLaSir_PentruFisier()
         {
-            string obiectMedicamentPentruFisier = string.Format("{1}{0}{2}{0}{3}{0}{4}{0}{5}{0}",
+            string obiectMedicamentPentruFisier = string.Format("{1}{0}{2}{0}{3}{0}{4}{0}{5}{0}{6}",
                 SEPARATOR_PRINCIPAL_FISIER,
                 idMedicament.ToString(),
                 (denumire ?? " NECUNOSCUT "),
                 (tip ?? " NECUNOSCUT "),
                 (prospect ?? " NECUNOSCUT "),
-                pret);
+                pret,
+                string.Join(",", (string[])furnizori.ToArray(Type.GetType("System.String"))));
 
             return obiectMedicamentPentruFisier;
         }

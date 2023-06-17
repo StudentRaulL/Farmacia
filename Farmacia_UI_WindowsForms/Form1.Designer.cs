@@ -46,6 +46,10 @@
             this.ckbMediPlus = new System.Windows.Forms.CheckBox();
             this.ckbFildas = new System.Windows.Forms.CheckBox();
             this.ckbFarmexim = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtCauta = new System.Windows.Forms.TextBox();
+            this.btnCauta = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.gpbProgrameStudiu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -118,7 +122,7 @@
             // 
             // btnAfiseaza
             // 
-            this.btnAfiseaza.Location = new System.Drawing.Point(287, 483);
+            this.btnAfiseaza.Location = new System.Drawing.Point(287, 459);
             this.btnAfiseaza.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAfiseaza.Name = "btnAfiseaza";
             this.btnAfiseaza.Size = new System.Drawing.Size(139, 28);
@@ -145,7 +149,7 @@
             // 
             // btnAdauga
             // 
-            this.btnAdauga.Location = new System.Drawing.Point(147, 483);
+            this.btnAdauga.Location = new System.Drawing.Point(147, 459);
             this.btnAdauga.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAdauga.Name = "btnAdauga";
             this.btnAdauga.Size = new System.Drawing.Size(124, 28);
@@ -166,7 +170,7 @@
             // lblPret
             // 
             this.lblPret.AutoSize = true;
-            this.lblPret.Location = new System.Drawing.Point(43, 80);
+            this.lblPret.Location = new System.Drawing.Point(43, 74);
             this.lblPret.Name = "lblPret";
             this.lblPret.Size = new System.Drawing.Size(38, 17);
             this.lblPret.TabIndex = 28;
@@ -175,7 +179,7 @@
             // lblDenumire
             // 
             this.lblDenumire.AutoSize = true;
-            this.lblDenumire.Location = new System.Drawing.Point(43, 44);
+            this.lblDenumire.Location = new System.Drawing.Point(43, 39);
             this.lblDenumire.Name = "lblDenumire";
             this.lblDenumire.Size = new System.Drawing.Size(77, 17);
             this.lblDenumire.TabIndex = 27;
@@ -228,11 +232,50 @@
             this.ckbFarmexim.Text = "Farmexim";
             this.ckbFarmexim.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(55, 501);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 17);
+            this.label1.TabIndex = 45;
+            this.label1.Text = "Cautare";
+            // 
+            // txtCauta
+            // 
+            this.txtCauta.Location = new System.Drawing.Point(135, 528);
+            this.txtCauta.Name = "txtCauta";
+            this.txtCauta.Size = new System.Drawing.Size(127, 23);
+            this.txtCauta.TabIndex = 46;
+            // 
+            // btnCauta
+            // 
+            this.btnCauta.Location = new System.Drawing.Point(287, 521);
+            this.btnCauta.Name = "btnCauta";
+            this.btnCauta.Size = new System.Drawing.Size(107, 37);
+            this.btnCauta.TabIndex = 47;
+            this.btnCauta.Text = "Cauta";
+            this.btnCauta.UseVisualStyleBackColor = true;
+            this.btnCauta.Click += new System.EventHandler(this.btnCauta_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(43, 531);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(77, 17);
+            this.label2.TabIndex = 48;
+            this.label2.Text = "Denumire";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 672);
+            this.ClientSize = new System.Drawing.Size(1008, 652);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.btnCauta);
+            this.Controls.Add(this.txtCauta);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.ckbFarmexim);
             this.Controls.Add(this.ckbFildas);
             this.Controls.Add(this.ckbMediPlus);
@@ -252,6 +295,7 @@
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.gpbProgrameStudiu.ResumeLayout(false);
@@ -280,6 +324,10 @@
         private System.Windows.Forms.CheckBox ckbMediPlus;
         private System.Windows.Forms.CheckBox ckbFildas;
         private System.Windows.Forms.CheckBox ckbFarmexim;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtCauta;
+        private System.Windows.Forms.Button btnCauta;
+        private System.Windows.Forms.Label label2;
     }
 }
 

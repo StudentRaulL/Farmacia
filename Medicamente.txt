@@ -1,1 +1,3 @@
-0;fhslkadjfhlkasdf;Pastila;sadf323rf3we4r34r3r3wrw3;123;
+0;Paracetamol;Pastila;Paracetamolul este o pastila buna;12;MediPlus,Farmexim
+0;Nurofen;Sirop;Nurofen este foarte bun;13;MediPlus
+0;ACC 600;Pastila;ACC 600 mg are actiune expectoranta si este indicat in terapia mucolitic;37;MediPlus
