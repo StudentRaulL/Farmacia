@@ -28,6 +28,7 @@ namespace Farmacia_UI_WindowsForms
         private const int DIMENSIUNE_PAS_Y = 30;
         private const int DIMENSIUNE_PAS_X = 120;
 	    private const int OFFSET_X = 600;
+        string caleCompletaFisier;
 
         ArrayList furnizoriSelectati = new ArrayList();
 
@@ -35,9 +36,8 @@ namespace Farmacia_UI_WindowsForms
         {
             string numeFisier = ConfigurationManager.AppSettings["DenumireFisier"];
             string locatieFisierSolutie = Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            string caleCompletaFisier = locatieFisierSolutie + "\\" + numeFisier;
+            caleCompletaFisier = locatieFisierSolutie + "\\" + numeFisier;
             adminMedicamente = new AdministrareMedicamente_FisierText(caleCompletaFisier);
-
             InitializeComponent();
             
             //setare proprietati
@@ -54,8 +54,33 @@ namespace Farmacia_UI_WindowsForms
             AfiseazaMedicamente();
         }
 
+        public void CautaMedicament(string denumire)
+        {
+
+            bool found = false;
+            using (StreamReader streamReader = new StreamReader(caleCompletaFisier))
+            {
+                string linieFisier;
+
+                // citeste cate o linie si verifica daca numele cautat se potriveste
+                // cu cel al produsului din linia citita
+                while ((linieFisier = streamReader.ReadLine()) != null)
+                {
+                    Medicament medicament = new Medicament(linieFisier);
+                    if (medicament.denumire == denumire)
+                    {
+                        MessageBox.Show(medicament.Info());
+                        found = true;
+                    }
+                }
+            }
+            if(!found)
+            MessageBox.Show("Medicamentul nu a fost gasit");
+        }
+
         private void AfiseazaMedicamente()
         {
+            this.Height = 700;
             //adaugare control de tip Label pentru 'Denumire';
             lblHeaderDenumire = new Label();
             lblHeaderDenumire.Width = LATIME_CONTROL;
@@ -119,9 +144,17 @@ namespace Farmacia_UI_WindowsForms
                 lblsPret[i] = new Label();
                 lblsPret[i].Width = LATIME_CONTROL;
                 lblsPret[i].Text = medicament.pret.ToString();
-                lblsPret[i].Left = OFFSET_X + DIMENSIUNE_PAS_X;
+                lblsPret[i].Left = OFFSET_X + 2 * DIMENSIUNE_PAS_X;
                 lblsPret[i].Top = (i + 1) * DIMENSIUNE_PAS_Y;
                 this.Controls.Add(lblsPret[i]);
+
+                //adaugare control de tip Label pentru furnizorii medicamentelor
+                lblsFurnizori[i] = new Label();
+                lblsFurnizori[i].Width = LATIME_CONTROL;
+                lblsFurnizori[i].Text = string.Join(",", (string[])medicament.furnizori.ToArray(Type.GetType("System.String")));
+                lblsFurnizori[i].Left = OFFSET_X + 3 * DIMENSIUNE_PAS_X;
+                lblsFurnizori[i].Top = (i + 1) * DIMENSIUNE_PAS_Y;
+                this.Controls.Add(lblsFurnizori[i]);
                 i++;
             }
         }
@@ -150,11 +183,10 @@ namespace Farmacia_UI_WindowsForms
             Tip tipSelectat = GetTipSelectat();
             
             Medicament s = new Medicament(0, txtDenumire.Text, tipSelectat.ToString(), txtProspect.Text, float.Parse(txtPret.Text));
-            
-            //set Furnizori
-            s.furnizori = new ArrayList();
-            s.furnizori.AddRange(furnizoriSelectati);
 
+            //set Furnizori
+            GetFurnizoriSelectati();
+            s.furnizori = furnizoriSelectati;
             adminMedicamente.AddMedicament(s);
             lblMesaj.Text = "Medicamentul a fost adaugat";
 
@@ -212,7 +244,9 @@ namespace Farmacia_UI_WindowsForms
         private void ResetareControale()
         {
             txtDenumire.Text = txtProspect.Text = txtPret.Text = string.Empty;
-            
+
+            lblDenumire.ForeColor = lblPret.ForeColor = lblProspect.ForeColor = Color.Green;
+
             rdbPastila.Checked = false;
             rdbSirop.Checked = false;
             rdbPraf.Checked = false;
@@ -237,10 +271,25 @@ namespace Farmacia_UI_WindowsForms
             return Tip.Pastila;
         }
 
+        private void GetFurnizoriSelectati()
+        {
+            if (ckbMediPlus.Checked)
+                furnizoriSelectati.Add(ckbMediPlus.Text);
+            if (ckbFarmexim.Checked)
+                furnizoriSelectati.Add(ckbFarmexim.Text);
+            if (ckbFildas.Checked)
+                furnizoriSelectati.Add(ckbFildas.Text);
+        }
+
         private void BtnAfiseaza_Click(object sender, EventArgs e)
         {
             AfiseazaMedicamente();
-            this.Width = 1000;
+            this.Width = 1200;
+        }
+
+        private void btnCauta_Click(object sender, EventArgs e)
+        {
+            CautaMedicament(txtCauta.Text);
         }
     }
 }
